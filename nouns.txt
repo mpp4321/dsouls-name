@@ -19,5 +19,75 @@ Firesage
 King
 Dragon
 Golem
-The Scaleless
-The Chaos Bed
+Scaleless
+Dark Sun
+Witch
+Elemental
+Drake
+Horror
+Skeleton
+Rotten
+Tesseract
+Anti-Beast
+Artificial-Intelligence
+Overlord
+Nexus-Mind
+Conflux
+Templar
+Gate Lord
+Minotaur
+Hydra
+Cyclops
+Chimera
+Eternal-Pattern
+Ponderer
+Garden
+Golden-age
+Legionless
+Genesis
+Genesis-Heart
+Terraformer
+Nightmare
+Martyr
+Butcher
+Dreadnaught
+Icon
+Titan
+Mind
+Draugr
+Worm-God
+Great-Disaster
+Soul
+Blight-lord
+Grave
+Grave-mind
+Mind-bender
+Beholder
+Spider
+"The Spider"
+Keeper
+Mouth
+Drifter
+The Consequence
+Consequence
+Aftermath
+Nano-Weapon
+Contagion
+Felmonger
+Exodus
+Mammoth
+Super-colossal
+Enormous
+Extinction
+Neuromancer
+Necromancer
+Nanomancer
+Cybermancer
+Airship
+Apocalypse
+Scientist
+Surgeon
+Potion
+Concoction
+Formula
+Tech
