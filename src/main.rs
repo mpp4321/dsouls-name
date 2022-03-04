@@ -6,11 +6,11 @@ use std::fs::File;
 use std::io::{BufRead, self};
 
 lazy_static! {
-    static ref NOUNS: Vec<String> = read_lines_vec("nouns.txt");
-    static ref ADJECTIVES: Vec<String> = read_lines_vec("adjectives.txt");
-    static ref PLACES: Vec<String> = read_lines_vec("places.txt");
-    static ref SUFFIXES: Vec<String> = read_lines_vec("suffixes.txt");
-    static ref TITLES: Vec<String> = read_lines_vec("titles.txt");
+    static ref NOUNS: Vec<String> = read_lines_vec("res/nouns.txt");
+    static ref ADJECTIVES: Vec<String> = read_lines_vec("res/adjectives.txt");
+    static ref PLACES: Vec<String> = read_lines_vec("res/places.txt");
+    static ref SUFFIXES: Vec<String> = read_lines_vec("res/suffixes.txt");
+    static ref TITLES: Vec<String> = read_lines_vec("res/titles.txt");
 }
 
 const DECKED: bool = true;
@@ -101,7 +101,7 @@ fn do_name_with_sentence(lines: &Vec<Result<String, io::Error>>) {
 }
 
 fn main() {
-    let file_with_names = File::open("names.txt").expect("Did not find names.txt");
+    let file_with_names = File::open("res/names.txt").expect("Did not find names.txt");
     let lines = io::BufReader::new(file_with_names).lines().collect::<Vec<Result<String, _>>>();
     for _ in 0..10 {
         do_name_with_sentence(&lines);
