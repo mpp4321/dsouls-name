@@ -24,3 +24,7 @@ Light
 the Sacred Foresight
 the Fruitless Search
 the Disease
+Steel
+Wood
+Oaken
+Blight
