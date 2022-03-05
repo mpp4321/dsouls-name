@@ -21,3 +21,7 @@ Twilight
 Sin
 a Thousand Screams
 Light
+Steel
+Wood
+Oaken
+Blight

@@ -91,3 +91,19 @@ Potion
 Concoction
 Formula
 Tech
+Soot
+Steel
+Arbitor
+Arbitrator
+Heritic
+Thread Bearer
+Cinder
+Mortition
+Bringer
+Ruin
+Bones
+Catalyst
+Arc-Bringer
+Conjunction
+The Smith
+Widow
