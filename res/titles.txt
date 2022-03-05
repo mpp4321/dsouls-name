@@ -18,3 +18,10 @@ Elder
 Thronebearer
 Veteran
 Kin
+God-King
+Voiceless
+Flame
+Digitizer
+Spellweaver
+Ponderer
+Teller

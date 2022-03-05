@@ -28,3 +28,9 @@ Steel
 Wood
 Oaken
 Blight
+Sightless
+Forgebrain
+Forgemind
+Brassheart
+Bellowlung
+Hammerfist

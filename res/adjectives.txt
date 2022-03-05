@@ -60,3 +60,7 @@ Honorable
 Veteran
 Serpentine
 Murky
+Ancient
+Archaic
+Reforged
+Prime
