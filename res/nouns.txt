@@ -91,3 +91,5 @@ Potion
 Concoction
 Formula
 Tech
+Worldbeast
+Worldserpent

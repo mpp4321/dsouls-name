@@ -10,3 +10,4 @@ betrayer
 traitor
 bestower
 Paladin
+worshipper
