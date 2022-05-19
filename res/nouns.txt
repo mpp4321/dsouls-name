@@ -98,7 +98,6 @@ Steel
 Arbitor
 Arbitrator
 Heritic
-Thread Bearer
 Cinder
 Mortition
 Bringer
@@ -120,3 +119,36 @@ Centurion
 Orb
 OmniWarlord
 Pig-god
+Nomad
+Skinless
+Valkyrie
+Scorpion
+Godflesh Mushroom
+Spirit
+Lich
+Curse-Carrier
+Blastphemy
+Ancestor Spirit
+Knight
+Dragon Skin Knight
+Dragon Lord
+Sin
+Bard
+Void-Watcher
+Deacon
+Dreamslayer
+Crepitus
+Queen
+Goblin
+Orc
+Elf
+Elf-king
+Wizard
+Nymph
+Skull
+Meatworm
+Brother
+Doll
+Wormhole
+Curse
+Jelly-like Omen

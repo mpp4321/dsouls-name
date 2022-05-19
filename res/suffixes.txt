@@ -34,3 +34,6 @@ Forgemind
 Brassheart
 Bellowlung
 Hammerfist
+Desperation
+Blastphemy
+Crepitus

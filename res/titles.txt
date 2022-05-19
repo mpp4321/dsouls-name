@@ -1,3 +1,4 @@
+Sufferer
 Slayer
 Conquerer
 King
@@ -13,7 +14,6 @@ Mage
 Paladin
 worshipper
 Creator
-Landlord
 Elder
 Thronebearer
 Veteran
@@ -25,3 +25,15 @@ Digitizer
 Spellweaver
 Ponderer
 Teller
+Pioneer
+Vengencebearer
+Kisser
+Eater
+Devourer
+Hunter
+Crusher
+Savior
+Fiend
+Flayer
+Miracle
+Curse-Carrier

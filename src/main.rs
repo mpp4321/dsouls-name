@@ -5,6 +5,13 @@ use string_builder::Builder;
 use std::fs::File;
 use std::io::{BufRead, self};
 
+#[allow(dead_code)]
+enum PreBuiltChoice {
+    StaticChoice(&'static str),
+    AlwaysChoose,
+    ChanceChoose(f64),
+}
+
 lazy_static! {
     static ref NOUNS: Vec<String> = read_lines_vec("res/nouns.txt");
     static ref ADJECTIVES: Vec<String> = read_lines_vec("res/adjectives.txt");
@@ -12,8 +19,6 @@ lazy_static! {
     static ref SUFFIXES: Vec<String> = read_lines_vec("res/suffixes.txt");
     static ref TITLES: Vec<String> = read_lines_vec("res/titles.txt");
 }
-
-const DECKED: bool = true;
 
 fn read_lines_vec(name: &'static str) -> Vec<String> {
     let file_with_names = File::open(name).expect("Did not find file");
@@ -28,26 +33,41 @@ fn pick_from<T>(items: &[T]) -> &T {
     return &items[random_len];
 }
 
-fn do_title(choose_title: bool, titles_ref: &[String], working_name: &mut Builder) {
-    if choose_title {
-        let a = pick_from(titles_ref).clone();
-        working_name.append(", ");
-        working_name.append(a.as_bytes());
+/// tries to append ", [title]" to the working_name
+fn do_title(titles_ref: &[String], working_name: &mut Builder) {
+    check_choice(&CHOOSE_TITLE, working_name, titles_ref, |build, strings| {
+        let a = pick_from(strings).clone();
+        build.append(", ".as_bytes());
+        build.append(a.as_bytes());
+    });
+}
+
+/// Runs the choice_fn closure on the working_string
+/// if the PreBuiltChoice passes
+fn check_choice(pbc: &PreBuiltChoice,
+                working_string: &mut Builder,
+                strings: &[String],
+                choice_fn: fn(&mut Builder, &[String])) {
+    match pbc {
+        PreBuiltChoice::AlwaysChoose => choice_fn(working_string, strings),
+        PreBuiltChoice::ChanceChoose(chance) => { 
+            if rand::random::<f64>() < *chance {
+                choice_fn(working_string, strings);
+            }
+        },
+        PreBuiltChoice::StaticChoice(a) => {
+            working_string.append(a.as_bytes());
+        },
     }
 }
 
+const CHOOSE_NOUN: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
+const CHOOSE_PREFIX: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
+const CHOOSE_TITLE: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
+const CHOOSE_SUFFIX: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
+
 fn generate_random_name() -> String {
     let mut working_name: Builder = Builder::default();
-
-    // An adjective prefix
-    let choose_prefix = rand::random::<bool>() || DECKED;
-
-
-    // A word from the suffix list
-    let choose_suffix = rand::random::<bool>() || DECKED;
-
-    // Title
-    let choose_title = (rand::random::<bool>() || DECKED) && choose_suffix;
     
     let nouns_ref: &[String] = &*NOUNS;
     let adjectives_ref: &[String] = &*ADJECTIVES;
@@ -55,40 +75,58 @@ fn generate_random_name() -> String {
     let suffixes_ref: &[String] = &*SUFFIXES;
     let titles_ref: &[String] = &*TITLES;
 
-    let noun = pick_from(nouns_ref);
-    if choose_prefix {
-        let a = pick_from(adjectives_ref); 
-        working_name.append(a.as_bytes());
-        working_name.append(" ".as_bytes());
-    }
-    working_name.append(noun.as_bytes());
-    if choose_suffix {
-        match rand::random::<i8>() % 4 {
-            0 => {
-                do_title(choose_title, titles_ref, &mut working_name);
-                let a = pick_from(nouns_ref).clone();
-                working_name.append(" of the ".as_bytes());
-                working_name.append(a.as_bytes());
-            },
-            1 => {
-                do_title(choose_title, titles_ref, &mut working_name);
-                let a = pick_from(places_ref).clone();
-                working_name.append(" of ".as_bytes());
-                working_name.append(a.as_bytes());
-            },
-            2 => {
-                do_title(choose_title, titles_ref, &mut working_name);
-                let a = pick_from(suffixes_ref).clone();
-                working_name.append(" of ".as_bytes());
-                working_name.append(a.as_bytes());
-            },
-            3 => {
-                let a = pick_from(nouns_ref).clone();
-                working_name.append(" ".as_bytes());
-                working_name.append(a.as_bytes());
-            },
-            _ => {},
-        }
+    /// Append adjective
+    check_choice(&CHOOSE_PREFIX, &mut working_name, adjectives_ref, |build, strings| {
+        let a = pick_from(strings); 
+        build.append(a.as_bytes());
+        build.append(" ".as_bytes());
+    });
+
+    /// Append noun
+    check_choice(&CHOOSE_NOUN, &mut working_name, nouns_ref, |build, strings| {
+        let a = pick_from(strings).clone();
+        build.append(a.as_bytes());
+        build.append(" ".as_bytes());
+    });
+
+    /// Append either 
+    /// 0 => " of the [noun]"
+    /// 1 => " of [places]"
+    /// 2 => " of [suffix]"
+    /// 3 => " of [noun]"
+    match rand::random::<u8>() % 4 {
+        0 => {
+            do_title(titles_ref, &mut working_name);
+            check_choice(&CHOOSE_SUFFIX, &mut working_name, nouns_ref, |build, strings| {
+                let a = pick_from(strings).clone();
+                build.append(" of the ".as_bytes());
+                build.append(a.as_bytes());
+            });
+        },
+        1 => {
+            do_title(titles_ref, &mut working_name);
+            check_choice(&CHOOSE_SUFFIX, &mut working_name, places_ref, |build, strings| {
+                let a = pick_from(strings).clone();
+                build.append(" of ".as_bytes());
+                build.append(a.as_bytes());
+            });
+        },
+        2 => {
+            do_title(titles_ref, &mut working_name);
+            check_choice(&CHOOSE_SUFFIX, &mut working_name, suffixes_ref, |build, strings| {
+                let a = pick_from(strings).clone();
+                build.append(" of ".as_bytes());
+                build.append(a.as_bytes());
+            });
+        },
+        3 => {
+            check_choice(&CHOOSE_SUFFIX, &mut working_name, nouns_ref, |build, strings| {
+                let a = pick_from(strings).clone();
+                build.append("of ".as_bytes());
+                build.append(a.as_bytes());
+            });
+        },
+        _ => {},
     }
     return working_name.string().expect("Failed to build string");
 }
@@ -104,6 +142,6 @@ fn main() {
     let file_with_names = File::open("res/names.txt").expect("Did not find names.txt");
     let lines = io::BufReader::new(file_with_names).lines().collect::<Vec<Result<String, _>>>();
     for _ in 0..10 {
-        do_name_with_sentence(&lines);
+        println!("{}", generate_random_name());
     }
 }
