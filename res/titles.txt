@@ -12,7 +12,7 @@ Traitor
 Bestower
 Mage
 Paladin
-worshipper
+Worshipper
 Creator
 Elder
 Thronebearer
@@ -24,7 +24,7 @@ Flame
 Digitizer
 Spellweaver
 Ponderer
-Teller
+Informant
 Pioneer
 Vengencebearer
 Kisser
@@ -37,3 +37,9 @@ Fiend
 Flayer
 Miracle
 Curse-Carrier
+Desicrator
+Tormentor
+Elite
+Champion
+Teacher
+Formation

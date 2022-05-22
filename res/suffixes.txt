@@ -29,11 +29,11 @@ Wood
 Oaken
 Blight
 Sightless
-Forgebrain
-Forgemind
-Brassheart
-Bellowlung
-Hammerfist
+Clan Forgebrain
+Clan Forgemind
+Clan Brassheart
+Clan Bellowlung
+Clan Hammerfist
 Desperation
 Blastphemy
 Crepitus

@@ -1,5 +1,6 @@
 mod request_handler;
 
+use colored::{Colorize, Color};
 use lazy_static::lazy_static;
 use string_builder::Builder;
 use std::fs::File;
@@ -122,8 +123,9 @@ fn generate_random_title() -> String {
         3 => {
             check_choice(&CHOOSE_SUFFIX, &mut working_name, nouns_ref, |build, strings| {
                 let a = pick_from(strings).clone();
-                build.append("of ".as_bytes());
+                build.append("\"The ".as_bytes());
                 build.append(a.as_bytes());
+                build.append("\"".as_bytes());
             });
         },
         _ => {},
@@ -151,8 +153,12 @@ mod name_code {
     }
 }
 
+fn generate_true_colore() -> Color {
+    Color::TrueColor { r: rand::random::<u8>(), g: rand::random::<u8>(), b: rand::random::<u8>() }
+}
+
 fn main() {
     for _ in 0..10 {
-        println!("{}", generate_random_title());
+        println!("{} | {}", generate_random_title(), "#".color(generate_true_colore()));
     }
 }
