@@ -66,7 +66,7 @@ const CHOOSE_PREFIX: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
 const CHOOSE_TITLE: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
 const CHOOSE_SUFFIX: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
 
-fn generate_random_name() -> String {
+fn generate_random_title() -> String {
     let mut working_name: Builder = Builder::default();
     
     let nouns_ref: &[String] = &*NOUNS;
@@ -75,25 +75,25 @@ fn generate_random_name() -> String {
     let suffixes_ref: &[String] = &*SUFFIXES;
     let titles_ref: &[String] = &*TITLES;
 
-    /// Append adjective
+    // Append adjective
     check_choice(&CHOOSE_PREFIX, &mut working_name, adjectives_ref, |build, strings| {
         let a = pick_from(strings); 
         build.append(a.as_bytes());
         build.append(" ".as_bytes());
     });
 
-    /// Append noun
+    // Append noun
     check_choice(&CHOOSE_NOUN, &mut working_name, nouns_ref, |build, strings| {
         let a = pick_from(strings).clone();
         build.append(a.as_bytes());
         build.append(" ".as_bytes());
     });
 
-    /// Append either 
-    /// 0 => " of the [noun]"
-    /// 1 => " of [places]"
-    /// 2 => " of [suffix]"
-    /// 3 => " of [noun]"
+    // Append either 
+    // 0 => " of the [noun]"
+    // 1 => " of [places]"
+    // 2 => " of [suffix]"
+    // 3 => " of [noun]"
     match rand::random::<u8>() % 4 {
         0 => {
             do_title(titles_ref, &mut working_name);
@@ -131,17 +131,28 @@ fn generate_random_name() -> String {
     return working_name.string().expect("Failed to build string");
 }
 
-fn do_name_with_sentence(lines: &Vec<Result<String, io::Error>>) {
-    let n = rand::random::<usize>() % lines.len();
-    let nth = lines[n].as_ref().map(Clone::clone).expect("Picked an error line.");
+#[allow(dead_code)]
+mod name_code {
+    use super::*;
 
-    println!("{}, {}", nth, generate_random_name());
+    // Legacy code
+    fn do_name_with_sentence() {
+        let file_with_names = File::open("res/names.txt").expect("Did not find names.txt");
+        let lines = io::BufReader::new(file_with_names).lines().collect::<Vec<Result<String, _>>>();
+
+        for _ in 0..10 {
+            println!("{}, {}", get_random_name(&lines), generate_random_title());
+        }
+    }
+
+    fn get_random_name(lines: &Vec<Result<String, io::Error>>) -> String {
+        let n = rand::random::<usize>() % lines.len();
+        lines[n].as_ref().map(Clone::clone).expect("Error picking line")
+    }
 }
 
 fn main() {
-    let file_with_names = File::open("res/names.txt").expect("Did not find names.txt");
-    let lines = io::BufReader::new(file_with_names).lines().collect::<Vec<Result<String, _>>>();
     for _ in 0..10 {
-        println!("{}", generate_random_name());
+        println!("{}", generate_random_title());
     }
 }
