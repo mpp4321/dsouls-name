@@ -1,5 +1,3 @@
-mod request_handler;
-
 use colored::{Colorize, Color};
 use lazy_static::lazy_static;
 use string_builder::Builder;
@@ -7,25 +5,24 @@ use std::fs::File;
 use std::io::{BufRead, self};
 
 #[allow(dead_code)]
-enum PreBuiltChoice {
+pub enum PreBuiltChoice {
     StaticChoice(&'static str),
     AlwaysChoose,
     ChanceChoose(f64),
 }
 
-lazy_static! {
-    static ref NOUNS: Vec<String> = read_lines_vec("res/nouns.txt");
-    static ref ADJECTIVES: Vec<String> = read_lines_vec("res/adjectives.txt");
-    static ref PLACES: Vec<String> = read_lines_vec("res/places.txt");
-    static ref SUFFIXES: Vec<String> = read_lines_vec("res/suffixes.txt");
-    static ref TITLES: Vec<String> = read_lines_vec("res/titles.txt");
+macro_rules! include_as_vec_string {
+    ($path:expr) => {
+        include_str!($path).split("\n").map(|s| s.to_string()).collect::<Vec<String>>()
+    };
 }
 
-fn read_lines_vec(name: &'static str) -> Vec<String> {
-    let file_with_names = File::open(name).expect("Did not find file");
-    let lines = io::BufReader::new(file_with_names).lines().collect::<Vec<Result<String, _>>>();
-    let lines: Vec<String> = lines.into_iter().flat_map(|a| a).collect();
-    return lines;
+lazy_static! {
+    static ref NOUNS: Vec<String> = include_as_vec_string!("../res/nouns.txt");
+    static ref ADJECTIVES: Vec<String> = include_as_vec_string!("../res/adjectives.txt");
+    static ref PLACES: Vec<String> = include_as_vec_string!("../res/places.txt");
+    static ref SUFFIXES: Vec<String> = include_as_vec_string!("../res/suffixes.txt");
+    static ref TITLES: Vec<String> = include_as_vec_string!("../res/titles.txt");
 }
 
 fn pick_from<T>(items: &[T]) -> &T {
@@ -67,7 +64,7 @@ const CHOOSE_PREFIX: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
 const CHOOSE_TITLE: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
 const CHOOSE_SUFFIX: PreBuiltChoice = PreBuiltChoice::AlwaysChoose;
 
-fn generate_random_title() -> String {
+pub fn generate_random_title() -> String {
     let mut working_name: Builder = Builder::default();
     
     let nouns_ref: &[String] = &*NOUNS;
@@ -87,7 +84,8 @@ fn generate_random_title() -> String {
     check_choice(&CHOOSE_NOUN, &mut working_name, nouns_ref, |build, strings| {
         let a = pick_from(strings).clone();
         build.append(a.as_bytes());
-        build.append(" ".as_bytes());
+        // NO space because of the comma
+        build.append("".as_bytes());
     });
 
     // Append either 
@@ -121,20 +119,20 @@ fn generate_random_title() -> String {
             });
         },
         3 => {
+            working_name.append(", ".as_bytes());
             check_choice(&CHOOSE_SUFFIX, &mut working_name, nouns_ref, |build, strings| {
                 let a = pick_from(strings).clone();
+                // Space because no comma
                 build.append("\"The ".as_bytes());
                 build.append(a.as_bytes());
                 build.append("\"".as_bytes());
-            });
-        },
-        _ => {},
+            }); }, _ => {},
     }
     return working_name.string().expect("Failed to build string");
 }
 
 #[allow(dead_code)]
-mod name_code {
+pub mod name_code {
     use super::*;
 
     // Legacy code
@@ -157,6 +155,8 @@ fn generate_true_colore() -> Color {
     Color::TrueColor { r: rand::random::<u8>(), g: rand::random::<u8>(), b: rand::random::<u8>() }
 }
 
+// This is being used as an optional binary
+#[allow(dead_code)]
 fn main() {
     for _ in 0..10 {
         println!("{} | {}", generate_random_title(), "#".color(generate_true_colore()));

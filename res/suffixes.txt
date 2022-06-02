@@ -27,7 +27,6 @@ the Disease
 Steel
 Wood
 Oaken
-Blight
 Sightless
 Clan Forgebrain
 Clan Forgemind
@@ -37,3 +36,4 @@ Clan Hammerfist
 Desperation
 Blastphemy
 Crepitus
+Blight
