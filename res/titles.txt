@@ -43,3 +43,5 @@ Elite
 Champion
 Teacher
 Formation
+Consort
+Noble

@@ -1,45 +1,45 @@
-the Holy Temple
-the Abyss
-the Grand Castle
-the Old Machines
+Holy Temple
+Abyss
+Grand Castle
+Old Machines
 Hell
 Heaven
-the Eternal Prison
-the Prism
-the Orb
-the Lost Plane
-the Fourth Realm
-the Skies
-the Depths
+Eternal Prison
+Prism
+Orb
+Lost Plane
+Fourth Realm
+Skies
+Depths
 Darkness
-the Northern Legion
-the Hyper Prison
+Northern Legion
+Hyper Prison
 Deep Space
-the Mega-Corporation
-the Nexus
-the Blood Keep
-the Tomb
-the Covenent of the Worm
-the Ascended Plane
-the Void
+Mega-Corporation
+Nexus
+Blood Keep
+Tomb
+Covenent of the Worm
+Ascended Plane
+Void
 Astroworld
-the Gryphon's Nest
-the Forgotten Vale
+Gryphon's Nest
+Forgotten Vale
 Limbo
-the Infinite Castle Purgatory
-the Wall 
-the Night
-the Morning
-the Dawn
-the Techno Babylon
-the Sword
-the Holy Land
-the Murky Brine
-the Cataclysm 
-the Coil
-the Tower
-the Moon
-the Sun
-the Universe
-the Redmist
-the Church
+Infinite Castle Purgatory
+Wall 
+Night
+Morning
+Dawn
+Techno Babylon
+Sword
+Holy Land
+Murky Brine
+Cataclysm 
+Coil
+Tower
+Moon
+Sun
+Universe
+Redmist
+Church

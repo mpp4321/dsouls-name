@@ -6,11 +6,13 @@ use std::{
 
 mod util;
 
+#[derive(Clone, Debug)]
 pub struct Sentence {
     inner: String,
 }
 
 impl Sentence {
+    /// Create new sentence
     pub fn new(inner: String) -> Self {
         Sentence { inner }
     }
@@ -21,7 +23,7 @@ impl Sentence {
     /// replace_slot("adjective", "nice") will put "nice" into the first adjective slot
     pub fn replace_slot(&mut self, slot: &str, inner: String) {
         let slot_formatted = format!("{{{}}}", slot);
-        self.inner = self.inner.replace(&slot_formatted, &inner);
+        self.inner = self.inner.replacen(&slot_formatted, &inner, 1);
     }
 
     pub fn get_modified(&self) -> String {
@@ -90,7 +92,22 @@ fn main() {
     let file = File::open("res/sentences.txt").expect("Did not find sentences.txt");
     let mut file_buf = BufReader::new(file);
     let sentences = load_sentences_from_file(&mut file_buf);
-    for sentence in sentences {
-        println!("{}", generate_dynamic_sentence(sentence));
+
+    let mut args = std::env::args();
+
+    let id = args
+        .nth(1)
+        .map(|a| a.parse::<usize>().unwrap());
+
+    let num = args.nth(0).unwrap_or("1".to_string()).parse::<usize>().unwrap();
+
+    let chosen = if let Some(id) = id {
+        sentences.get(id).unwrap()
+    } else {
+        pick_from(&sentences)
+    };
+
+    for _ in 0..num {
+        println!("{}", generate_dynamic_sentence(chosen.clone()));
     }
 }

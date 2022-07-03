@@ -70,7 +70,6 @@ Skinless
 Godlike
 Universal
 Dragon Skin
-Lich
 Decrepit
 Cracked
 Twin
@@ -79,3 +78,9 @@ Self-replicating
 Self-eliminating
 Twisted
 Sorrowful
+Abyssal
+Awakened
+Barbed
+Broken
+Clay
+Copper

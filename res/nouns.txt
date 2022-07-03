@@ -153,3 +153,17 @@ Wormhole
 Curse
 Jelly-like Omen
 Eunuch
+Greatwyrm
+Knife
+Druid
+Archmage
+Avatar
+Counterflux
+Crab
+Crow
+Disciple
+Troll
+Wyrmling
+Consort
+Shadowblade
+Noble
