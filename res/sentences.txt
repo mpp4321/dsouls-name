@@ -1,0 +1,2 @@
+{adjective} {noun}
+{title} {noun} of {place}
