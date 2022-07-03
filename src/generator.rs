@@ -158,7 +158,8 @@ fn generate_true_colore() -> Color {
 // This is being used as an optional binary
 #[allow(dead_code)]
 fn main() {
-    for _ in 0..10 {
+    let names = std::env::args().nth(1).unwrap_or("10".to_string()).parse::<i32>().unwrap();
+    for _ in 0..names {
         println!("{} | {}", generate_random_title(), "#".color(generate_true_colore()));
     }
 }
